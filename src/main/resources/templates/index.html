@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAND // PRE_LAUNCH</title>
+    <style>
+        /* --- 1. CORE AESTHETICS (Source 1: Neo-Brutalism) --- */
+        :root {
+            --bg-color: #0a0a0a;      /* Brutalist Black  */
+            --text-main: #e0e0e0;     /* Raw Terminal Text */
+            --accent-red: #ff003c;    /* Glitch Red */
+            --accent-cyan: #00f0ff;   /* Glitch Cyan */
+            --grid-line: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace; /* Simple Text Mandate [cite: 38] */
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. THE ABSTRACT MATRIX BACKGROUND [cite: 117-120] --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            /* Layer 1: Vertical Scanlines + Layer 2: Diagonal Interference */
+            background-image:
+                    repeating-linear-gradient(to right, transparent, transparent 1px, rgba(255,255,255,0.03) 1px, rgba(255,255,255,0.03) 2px),
+                    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.01) 10px, rgba(255,255,255,0.01) 11px);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-left: 1px solid var(--grid-line); /* Architectural Structure */
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        /* --- 3. HERO & GLITCH TYPOGRAPHY [cite: 124-135] --- */
+        header { margin-bottom: 4rem; }
+
+        h1.glitch {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* CSS-Only Glitch Effect on Hover */
+        h1.glitch:hover {
+            animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            color: var(--accent-red);
+            text-shadow: 2px 0 var(--accent-cyan), -2px 0 var(--accent-red);
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(-2deg); }
+            40% { transform: skew(2deg); }
+            60% { transform: skew(-1deg); }
+            80% { transform: skew(1deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        .subtitle { font-size: 0.9rem; opacity: 0.7; margin-top: 1rem; }
+
+        /* --- 4. PRODUCT GRID (Source 2: Impulse Psychology) --- */
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive [cite: 140] */
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            border: 1px solid var(--grid-line); /* Raw Borders  */
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .placeholder-img {
+            height: 250px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #333;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-weight: bold;
+        }
+
+        .badge {
+            background: var(--accent-red);
+            color: #000;
+            padding: 2px 6px;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- 5. WAITLIST FORM (The "Command Line") --- */
+        .waitlist-section {
+            border-top: 1px solid var(--grid-line);
+            padding-top: 3rem;
+        }
+
+        input[type="text"] {
+            background: transparent;
+            border: 1px solid var(--grid-line);
+            border-left: 3px solid var(--accent-cyan);
+            color: var(--text-main);
+            padding: 1rem;
+            width: 100%;
+            max-width: 400px;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus { background: rgba(0, 240, 255, 0.05); }
+
+        .input-error { border-color: var(--accent-red) !important; color: var(--accent-red); }
+        .error-msg { color: var(--accent-red); font-size: 0.8rem; margin-top: 0.5rem; display: block; }
+
+        button {
+            background: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            padding: 1rem 3rem;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            transition: transform 0.1s;
+        }
+
+        button:hover {
+            transform: translateX(5px); /* Micro-interaction */
+            background: var(--accent-cyan);
+        }
+
+        .hp-field { position: absolute; left: -9999px; opacity: 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <div style="font-size: 0.7rem; margin-bottom: 1rem; opacity: 0.5;">
+            STATUS: PRE_LAUNCH // SERVER_TIME: <span id="server-clock" th:text="${serverTime}">INIT</span>
+        </div>
+        <h1 class="glitch">ABSTRACT_LINES</h1>
+        <div class="subtitle">
+            DROP_001_PENDING // <span id="countdown">CALCULATING_OFFSET...</span>
+        </div>
+    </header>
+
+    <section class="grid-section">
+        <div class="product-card" th:each="product : ${products}">
+            <span class="badge" th:text="${product.badge}">BADGE</span>
+            <div class="placeholder-img">
+                [IMG_DATA_MISSING]
+            </div>
+            <div class="product-meta">
+                <div>
+                    <div th:text="${product.name}">PRODUCT_NAME</div>
+                    <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 5px;" th:text="${product.description}">DESC</div>
+                </div>
+                <div th:text="${product.price}">$000</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="waitlist-section">
+        <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">> SECURE_ACCESS</h2>
+
+        <form th:action="@{/join}" th:object="${subscriber}" method="post">
+            <div class="hp-field">
+                <input type="text" th:field="*{websiteUrl}" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div style="position: relative;">
+                <label style="display:block; font-size: 0.7rem; margin-bottom: 0.5rem; opacity: 0.7;">ENTER_EMAIL_ADDRESS:</label>
+                <input type="text" th:field="*{email}" placeholder="user@domain.net"
+                       th:classappend="${#fields.hasErrors('email')} ? 'input-error' : ''">
+            </div>
+
+            <span class="error-msg" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">INVALID_INPUT</span>
+
+            <button type="submit">INITIATE_SEQUENCE</button>
+        </form>
+
+        <p style="font-size: 0.7rem; margin-top: 2rem; opacity: 0.4; max-width: 400px;">
+            WARNING: HIGH TRAFFIC DETECTED. ALLOCATION IS NOT GUARANTEED.
+            BY INITIATING SEQUENCE YOU AGREE TO DATA RETENTION PROTOCOLS.
+        </p>
+    </section>
+</div>
+
+<script th:inline="javascript">
+    /* Server Time Sync Logic */
+    const serverTime = [[${serverTime}]];
+    const clientTime = Date.now();
+    const timeOffset = serverTime - clientTime; // Calculate offset
+
+    // Target Drop Date (Example: 24 hours from now)
+    const dropDate = serverTime + (24 * 60 * 60 * 1000);
+
+    function updateTimer() {
+        const currentServerTime = Date.now() + timeOffset;
+        const distance = dropDate - currentServerTime;
+
+        if (distance < 0) {
+            document.getElementById("countdown").innerHTML = "DROP_LIVE";
+            return;
+        }
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const ms = Math.floor((distance % 1000) / 10); // Show milliseconds for urgency
+
+        document.getElementById("countdown").innerHTML =
+            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${ms.toString().padStart(2, '0')}`;
+    }
+
+    setInterval(updateTimer, 10); // High frequency update [cite: 147]
+</script>
+</body>
+</html>
