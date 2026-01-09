@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'BRAND // ' + ${product.name}">BRAND // PRODUCT</title>
+    <!-- Link to the shared core CSS -->
+    <link rel="stylesheet" th:href="@{/css/core.css}">
+</head>
+<body>
+<div class="mobile-command-bar">
+    <div class="cmd-status" th:text="${product.name}">PRODUCT_ID</div>
+    <a th:href="@{/cart}" class="cmd-cart-btn">VIEW_BUFFER</a>
+</div>
+<div id="transition-overlay"></div>
+
+<div class="container" style="opacity: 0; animation: none;">
+    <header>
+        <div style="font-size: 0.7rem; margin-bottom: 1rem; opacity: 0.5; display: flex; justify-content: space-between;">
+            <span><a th:href="@{/}" style="color: inherit; text-decoration: none;">&lt; BACK_TO_GRID</a> // SERVER_TIME: <span th:text="${serverTime}">INIT</span></span>
+            <!-- NEW: Cart Link -->
+            <a th:href="@{/cart}" style="color: inherit; text-decoration: none; border-bottom: 1px solid transparent;" onmouseover="this.style.borderBottomColor='var(--accent-cyan)'" onmouseout="this.style.borderBottomColor='transparent'">
+                [ VIEW_BUFFER ]
+            </a>
+        </div>
+        <h1 class="glitch" th:text="${product.name}">PRODUCT_NAME</h1>
+        <div class="subtitle" th:text="${product.badge}">BADGE</div>
+    </header>
+
+    <section class="grid-section" style="grid-template-columns: 1fr;">
+        <div class="product-card" style="border-color: var(--accent-cyan);">
+            <div class="detail-image-wrapper">
+                <img th:src="@{'/images/p' + ${product.id} + 'description.png'}"
+                     alt="Product Detail"
+                     class="detail-real-img">
+            </div>
+
+            <div class="product-meta">
+                <span>PRICE_INDEX</span>
+                <span th:text="${product.price}">$0.00</span>
+            </div>
+
+            <p class="product-desc" style="text-align: left; font-size: 0.9rem; margin-top: 2rem;" th:text="${product.description}">
+                FULL_DESCRIPTION_LOADED...
+            </p>
+
+            <div style="margin-top: 2rem; border-top: 1px dashed var(--grid-line); padding-top: 1rem;">
+                <div style="font-size: 0.7rem; opacity: 0.7; margin-bottom: 0.5rem;">TECH_SPECS:</div>
+                <ul style="font-size: 0.8rem; list-style: none; padding: 0; margin: 0;">
+                         <!-- Ideally traverse product.specs here if your Entity supports it, or just static for now -->
+                        <li>> HEAVYWEIGHT_COTTON</li>
+                    </ul>
+                </div>
+
+                <!-- UPDATED: Add to Cart Form -->
+                <form th:action="@{/cart/add/{id}(id=${product.id})}" method="post">
+                    <button type="submit" style="width: 100%; margin-top: 2rem;">INITIALIZE_PURCHASE [ADD_TO_CART]</button>
+                </form>
+            </div>
+        </section>
+    <div class="info-terminal">
+        <div class="info-box">
+            <span class="info-icon">✈</span>
+            <div class="info-title">SPEDIZIONE_VELOCE</div>
+            <div class="info-text">
+                MILANO > MONDO.<br>
+                24-48H DISPATCH.<br>
+                TRACKING CRITTOGRAFATO.
+            </div>
+        </div>
+        <div class="info-box">
+            <span class="info-icon">🛡</span>
+            <div class="info-title">GARANZIA_CODICE</div>
+            <div class="info-text">
+                A VITA SUI DIFETTI.<br>
+                MATERIALI DI GRADO MILITARE.<br>
+                RESO: 30 GIORNI.
+            </div>
+        </div>
+        <div class="info-box">
+            <span class="info-icon">★</span>
+            <div class="info-title">QUALITÀ_SUPREMA</div>
+            <div class="info-text">
+                450 GSM COTTON.<br>
+                STAMPE INDISTRUTTIBILI.<br>
+                HAND-CHECKED IN ITALY.
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews-section">
+        <h3 style="font-size: 1rem; margin-bottom: 1.5rem;">> LOG_UTENTI (RECENSIONI)</h3>
+
+        <div class="review-log">
+            <div class="review-header">
+                <span>UTENTE: USER_0942</span>
+                <span class="stars">★★★★★</span>
+            </div>
+            <div class="review-body">
+                "Qualità irreale. Il peso del tessuto è perfetto. Sembra di indossare un'armatura. Spedizione arrivata in 24h a Roma."
+            </div>
+        </div>
+
+        <div class="review-log">
+            <div class="review-header">
+                <span>UTENTE: GHOST_SHELL</span>
+                <span class="stars">★★★★★</span>
+            </div>
+            <div class="review-body">
+                "Il fit boxy è esattamente come descritto. Grafica pazzesca. Sicuramente prenderò anche i pantaloni."
+            </div>
+        </div>
+
+        <div class="review-log">
+            <div class="review-header">
+                <span>UTENTE: SYSTEM_ADMIN</span>
+                <span class="stars">★★★★☆</span>
+            </div>
+            <div class="review-body">
+                "Materiali top tier. Packaging incredibile, sembrava un componente hardware."
+            </div>
+        </div>
+    </div>
+    </div>
+
+<footer class="site-footer">
+    <div style="margin-bottom: 1.5rem; letter-spacing: 2px; font-weight: bold;">BRAND_CORP // 2026</div>
+
+    <div class="footer-links">
+        <a href="#">SPEDIZIONI</a> //
+        <a href="#">TERMINI & CONDIZIONI</a> //
+        <a href="#">PRIVACY_PROTOCOL</a> //
+        <a href="#">INSTAGRAM</a>
+    </div>
+
+    <p style="margin-top: 2rem; font-size: 0.6rem;">
+        MILANO, ITALIA.<br>
+        TUTTI I SISTEMI OPERATIVI.<br>
+        CODICE IDENTIFICATIVO: 00-294-X
+    </p>
+</footer>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+        /* --- GLITCH TRANSITION INTERCEPTOR --- */
+        const overlay = document.getElementById('transition-overlay');
+        const container = document.querySelector('.container');
+
+        // 1. Reveal page on load (Fade out overlay)
+        // Immediately apply active class then remove it to trigger fade out
+        overlay.classList.add('glitch-active');
+
+        // Simulating "decryption" delay
+        setTimeout(() => {
+            overlay.classList.remove('glitch-active');
+            container.style.opacity = '1';
+            container.style.animation = 'fadeIn 0.5s forwards';
+        }, 300);
+
+        // 2. Intercept "Back" Link
+        const backLink = document.querySelector('a[href*="/"]'); // Poor man's selector for home link
+        if(backLink) {
+            backLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetUrl = backLink.href;
+
+                // Show overlay
+                overlay.classList.add('glitch-active');
+
+                // Wait and Navigate
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 600);
+            });
+        }
+    });
+    /* --- HAPTIC FEEDBACK (VIBRAȚII) --- */
+    document.querySelectorAll('a, button, input[type="submit"]').forEach(el => {
+        el.addEventListener('click', () => {
+            if (navigator.vibrate) {
+                navigator.vibrate(100); // Bzzzt scurt
+            }
+        });
+    });
+</script>
+</body>
+</html>

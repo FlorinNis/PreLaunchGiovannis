@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TRANSACTION_BUFFER // CHECKOUT</title>
+    <link rel="stylesheet" th:href="@{/css/core.css}">
+</head>
+<body class="receipt-mode">
+
+<div class="receipt-container">
+
+    <div class="receipt-header">
+        <h3>BRAND_CORP // STORE</h3>
+        <div class="receipt-meta">
+            DATA: <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm')}">2026-01-01</span><br>
+            TERM_ID: <span th:text="${sessionId}">XYZ-123</span>
+        </div>
+    </div>
+
+    <div class="receipt-items">
+        <div th:if="${cartItems == null or cartItems.isEmpty()}" style="text-align: center; padding: 2rem 0;">
+            [ BUFFER_EMPTY ]<br><br>
+            <a th:href="@{/}" class="receipt-link">[ RETURN_TO_TERMINAL ]</a>
+        </div>
+
+        <div th:each="item : ${cartItems}" class="receipt-item">
+            <span class="item-name" th:text="${item.key.name}">HOODIE_KERNEL_V1</span>
+            <span>x<span th:text="${item.value}">1</span></span>
+            <span style="margin-left: 1rem;" th:text="'$' + ${item.key.price * item.value}">$120</span>
+        </div>
+    </div>
+
+    <div class="receipt-footer" th:if="${cartItems != null and not cartItems.isEmpty()}">
+        <div class="receipt-total">
+            <span>TOTAL_DUE:</span>
+            <span th:text="'$' + ${total}">$0.00</span>
+        </div>
+
+        <form th:action="@{/checkout}" method="post">
+            <label style="font-size: 0.7rem; font-weight: bold;">CUSTOMER_ID (EMAIL):</label>
+            <input type="text" name="email" class="receipt-input" placeholder="user@domain.com" required>
+
+            <button type="submit" class="receipt-btn">
+                [ EXECUTE_TRANSACTION ]
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <a th:href="@{/}" class="receipt-link">ABORT_TRANSACTION</a>
+        </div>
+    </div>
+
+    <div class="receipt-barcode">
+        ||| | ||||| || ||| |||| | ||
+    </div>
+</div>
+
+</body>
+</html>

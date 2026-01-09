@@ -1,12 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>ACCESS_GRANTED</title>
+    <title>ACCESS_GRANTED // AGENT_MODE</title>
+    <link rel="stylesheet" th:href="@{/css/core.css}">
     <style>
-        body { background: #0a0a0a; color: #00f0ff; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        h1 { border: 1px solid #00f0ff; padding: 2rem; }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .success-card {
+            border: 1px solid var(--accent-cyan);
+            padding: 3rem;
+            max-width: 600px;
+            background: rgba(0, 240, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-card::before {
+            content: "CONFIRMED";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            opacity: 0.1;
+            color: var(--accent-cyan);
+            z-index: -1;
+            font-weight: 900;
+        }
+
+        .rank-display {
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin: 1rem 0;
+            border: 1px dashed var(--accent-cyan);
+            padding: 1rem;
+        }
+
+        .agent-box {
+            background: #000;
+            border: 1px dashed #fff;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .agent-code {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #fff;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .copy-btn {
+            background: var(--accent-cyan);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        .copy-btn:hover {
+            background: #fff;
+        }
     </style>
 </head>
 <body>
-<h1>> YOU_ARE_IN_THE_CULT</h1> </body>
+<div id="transition-overlay"></div>
+
+<div class="success-card">
+    <h1>> TRANSACTION_CONFIRMED</h1>
+
+    <p style="opacity: 0.7;">WELCOME TO THE INNER CIRCLE.</p>
+
+    <div class="rank-display" th:if="${order}">
+        YOU ARE AGENT #<span th:text="${order.dropRank}">000</span>
+    </div>
+    <div th:unless="${order}">
+        <!-- Fallback if accessed directly without an order -->
+        STATUS: PENDING VERIFICATION
+    </div>
+
+    <div class="agent-box" th:if="${order}">
+        <p style="font-size: 0.7rem; margin-top: 0;">IMPROVE YOUR ALLOCATION CHANCE.<br>SHARE YOUR AGENT_ID:</p>
+
+        <span class="agent-code" id="agentCode" th:text="${order.agentId}">AGT-XXXX</span>
+
+        <button class="copy-btn" onclick="copyToClipboard()">[ COPY_TO_CLIPBOARD ]</button>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <a th:href="@{/}" style="color: var(--accent-cyan); text-decoration: none;">&lt; RETURN_TO_BASE</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('transition-overlay');
+        overlay.classList.add('glitch-active');
+        setTimeout(() => { overlay.classList.remove('glitch-active'); }, 300);
+    });
+
+    function copyToClipboard() {
+        const code = document.getElementById('agentCode').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "[ COPIED! ]";
+            setTimeout(() => { btn.innerText = originalText; }, 2000);
+        });
+    }
+</script>
+</body>
 </html>

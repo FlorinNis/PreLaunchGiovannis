@@ -1,0 +1,928 @@
+/* =========================================
+   CORE AESTHETICS (NEO-BRUTALISM)
+   ========================================= */
+:root {
+    --bg-color: #0a0a0a;      /* Brutalist Black (Fundal General) */
+    --text-main: #e0e0e0;     /* Text pe fundal negru */
+
+    /* --- ADAUGĂ ASTA PENTRU DESIGN ALB --- */
+    --card-bg: #f4f4f4;       /* Alb "Industrial" (hârtie) */
+    --card-text: #000000;     /* Text Negru pe carduri */
+    --btn-bg: #ffffff;        /* Butoane Albe pur */
+    /* ------------------------------------ */
+
+    --accent-red: #ff003c;
+    --accent-cyan: #00f0ff;
+    --grid-line: rgba(255, 255, 255, 0.2);
+    --terminal-green: #00ff00;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Space Mono', 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: crosshair;
+}
+
+/* --- 1. SPOTLIGHT INVERSION CURSOR --- */
+#cursor-spotlight {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s linear, width 0.2s, height 0.2s;
+    top: -500px;
+    left: -500px;
+}
+
+/* --- ABSTRACT MATRIX BACKGROUND --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    background-image:
+            repeating-linear-gradient(to right, transparent, transparent 1px, rgba(255,255,255,0.03) 1px, rgba(255,255,255,0.03) 2px),
+            repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.01) 10px, rgba(255,255,255,0.01) 11px);
+    pointer-events: none;
+}
+
+/* --- MAIN CONTAINER --- */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    border-left: 1px solid var(--grid-line);
+    border-right: 1px solid var(--grid-line);
+    padding: 2rem;
+    opacity: 0;
+}
+
+/* =========================================
+   HEADER & TYPOGRAPHY
+   ========================================= */
+header {
+    margin-bottom: 4rem;
+    width: 100%;
+}
+
+h1.glitch {
+    font-size: 4rem;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+    cursor: default;
+}
+
+h1.glitch:hover {
+    color: var(--accent-red);
+    text-shadow: 3px 0 var(--accent-cyan), -3px 0 var(--accent-red);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 1rem;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--grid-line);
+    display: inline-block;
+    padding-top: 0.5rem;
+}
+
+.dud {
+    color: var(--accent-red);
+    opacity: 0.7;
+}
+
+/* =========================================
+   HERO MANIFEST LAYER (TICKER & RADAR)
+   ========================================= */
+.hero-manifest {
+    margin-bottom: 4rem;
+    border: 1px solid var(--grid-line);
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Ticker */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid var(--grid-line);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.5rem 0;
+}
+
+.ticker-move {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-left 20s linear infinite;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding-right: 2rem;
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    font-weight: bold;
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Split Grid */
+.split-grid {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    border-bottom: 1px solid var(--grid-line);
+    min-height: 250px;
+}
+
+.manifesto-box {
+    padding: 2rem;
+    border-right: 1px solid var(--grid-line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tiny-header {
+    font-size: 0.6rem;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.manifesto-text {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Radar Visualizer */
+.visualizer-box {
+    position: relative;
+    background:
+            radial-gradient(circle, rgba(0, 240, 255, 0.1) 2px, transparent 2.5px),
+            linear-gradient(to bottom, transparent 49%, rgba(0, 240, 255, 0.05) 50%, transparent 51%);
+    background-size: 20px 20px, 100% 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.radar-scan {
+    width: 150px;
+    height: 150px;
+    border: 1px dashed var(--accent-cyan);
+    border-radius: 50%;
+    position: relative;
+    animation: rotate-scan 4s linear infinite;
+}
+
+.radar-scan::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    width: 50%; height: 50%;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.5));
+    transform-origin: 0% 100%;
+    animation: radar-sweep 2s linear infinite;
+}
+
+@keyframes rotate-scan { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Status Bar */
+.status-bar {
+    padding: 0.8rem 2rem;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0,0,0,0.5);
+    font-weight: bold;
+}
+
+/* =========================================
+   KINETIC MANIFESTO SECTION (PARALLAX)
+   ========================================= */
+.manifesto-section {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 100px 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid var(--grid-line);
+    border-bottom: 1px solid var(--grid-line);
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.01);
+}
+
+.huge-type {
+    font-size: 3vw;
+    line-height: 1;
+    font-weight: 900;
+    white-space: nowrap;
+    will-change: transform;
+    color: var(--text-main);
+    transition: color 0.3s;
+}
+
+.huge-type:hover {
+    color: var(--terminal-green);
+}
+
+.huge-type.outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-main);
+    opacity: 0.5;
+}
+
+.description-block {
+    font-size: 1.5rem;
+    text-align: right;
+    max-width: 600px;
+    margin: 2rem 10% 2rem 0;
+    padding-right: 20px;
+    border-right: 5px solid var(--accent-cyan);
+    align-self: flex-end;
+}
+
+/* =========================================
+   WAITLIST FORM
+   ========================================= */
+.waitlist-section {
+    border-top: 1px solid var(--grid-line);
+    padding-top: 3rem;
+    margin-bottom: 4rem;
+}
+
+input[type="text"] {
+    background: transparent;
+    border: 1px solid var(--grid-line);
+    border-left: 3px solid var(--accent-cyan);
+    color: var(--text-main);
+    padding: 1rem;
+    width: 100%;
+    max-width: 500px;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+}
+
+input:focus {
+    background: rgba(0, 240, 255, 0.1);
+}
+
+.input-error {
+    border-color: var(--accent-red) !important;
+    color: var(--accent-red);
+}
+
+.error-msg {
+    color: var(--accent-red);
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+button, .add-btn, .receipt-btn {
+    background: var(--btn-bg); /* Alb */
+    color: #000;               /* Text Negru */
+    border: 2px solid #fff;    /* Bordură albă */
+    padding: 1.2rem 4rem;
+    font-family: inherit;
+    font-weight: 900;          /* Foarte gros */
+    cursor: pointer;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+button:hover, .add-btn:hover {
+    background: var(--accent-cyan); /* Se face Cyan la hover */
+    color: #000;
+    box-shadow: 4px 4px 0 #fff;     /* Umbră albă */
+    transform: translate(-2px, -2px);
+    border-color: var(--accent-cyan);
+}
+
+.hp-field {
+    position: absolute; left: -9999px; opacity: 0;
+}
+
+/* =========================================
+   OVERLAYS & BOOT SCREEN
+   ========================================= */
+#boot-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    z-index: 10000;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: var(--terminal-green);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.boot-line { margin-bottom: 0.5rem; }
+.cursor {
+    display: inline-block;
+    width: 12px; height: 1.2em;
+    background: var(--terminal-green);
+    animation: blink 1s infinite;
+    vertical-align: sub;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+#transition-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 9998;
+    background-color: #111;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+#transition-overlay.glitch-active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#transition-overlay::after {
+    content: "";
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: repeating-linear-gradient(0deg, transparent 0, rgba(255, 255, 255, 0.2) 2px, transparent 4px);
+    animation: noise-anim 0.2s infinite linear;
+}
+
+@keyframes noise-anim {
+    0% { transform: translate(0,0); }
+    10% { transform: translate(-5%, -5%); }
+    20% { transform: translate(5%, 5%); }
+    100% { transform: translate(0,0); }
+}
+
+@keyframes glitch-anim {
+    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+    20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+    40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+    60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+    80% { clip-path: inset(10% 0 60% 0); transform: translate(-1px, 1px); }
+    100% { clip-path: inset(30% 0 20% 0); transform: translate(1px, -1px); }
+}
+
+.glitch-active {
+    animation: glitch-anim 0.3s infinite linear alternate-reverse;
+}
+
+/* =========================================
+   RECEIPT MODE (FOR CHECKOUT)
+   ========================================= */
+body.receipt-mode {
+    background-color: #f4f4f4;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+body.receipt-mode::before,
+body.receipt-mode #cursor-spotlight,
+body.receipt-mode #boot-screen {
+    display: none !important;
+}
+
+.receipt-container {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px dashed #000;
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
+    animation: printReceipt 0.6s ease-out forwards;
+    transform-origin: top center;
+}
+
+@keyframes printReceipt {
+    0% { transform: scaleY(0); opacity: 0; }
+    100% { transform: scaleY(1); opacity: 1; }
+}
+
+.receipt-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.receipt-item .item-name {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.receipt-item .item-name::after {
+    content: " .................................";
+    opacity: 0.3;
+}
+
+.receipt-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin: 1.5rem 0;
+    border-top: 2px solid #000;
+    padding-top: 1rem;
+}
+
+.receipt-input {
+    width: 100%;
+    background: #eee;
+    border: 1px solid #000;
+    color: #000;
+    padding: 10px;
+    font-family: inherit;
+    margin-bottom: 1rem;
+}
+
+.receipt-btn {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.receipt-btn:hover {
+    background: #333;
+    color: #fff;
+    transform: none;
+    box-shadow: none;
+}
+
+.receipt-barcode {
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    margin-top: 2rem;
+    opacity: 0.6;
+    transform: scaleY(1.5);
+    font-weight: 900;
+}
+
+.receipt-link {
+    color: #000;
+    text-decoration: none;
+    font-size: 0.8rem;
+    border-bottom: 1px solid transparent;
+}
+.receipt-link:hover { border-bottom-color: #000; }
+
+/* =========================================
+   FLANKING LOGOS (CYBER CATS)
+   ========================================= */
+.flank-logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    position: relative;
+    padding: 0 1rem;
+}
+
+.flank-logo {
+    width: 200px;
+    height: auto;
+    opacity: 0.9;
+    transition: transform 0.2s, filter 0.2s;
+    filter: drop-shadow(0 0 5px var(--accent-cyan));
+}
+
+.flank-connector {
+    flex-grow: 1;
+    height: 2px;
+    background: repeating-linear-gradient(
+            90deg,
+            var(--accent-cyan),
+            var(--accent-cyan) 10px,
+            transparent 10px,
+            transparent 20px
+    );
+    margin: 0 2rem;
+    opacity: 0.5;
+    box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.flank-logo.glitch-hover:hover {
+    transform: scale(1.1) skewX(-5deg);
+    filter: drop-shadow(-2px 0 var(--accent-red)) drop-shadow(2px 0 var(--accent-cyan));
+    animation: subtle-shake 0.2s infinite;
+}
+
+@keyframes subtle-shake {
+    0% { transform: translate(0, 0) scale(1.1) skewX(-5deg); }
+    25% { transform: translate(-2px, 1px) scale(1.1) skewX(-5deg); }
+    50% { transform: translate(2px, -1px) scale(1.1) skewX(-5deg); }
+    75% { transform: translate(-1px, 2px) scale(1.1) skewX(-5deg); }
+    100% { transform: translate(0, 0) scale(1.1) skewX(-5deg); }
+}
+
+@media (max-width: 600px) {
+    .flank-logo-container {
+        display: none;
+    }
+}
+
+/* =========================================
+   MOBILE GOD MODE (Layout Tweaks)
+   ========================================= */
+.mobile-command-bar { display: none; }
+
+@media (max-width: 768px) {
+    body { padding-bottom: 80px; }
+    .container { padding: 1rem; border: none; max-width: 100%; }
+
+    #cursor-spotlight { display: none !important; }
+
+    .flank-logo-container {
+        display: flex !important;
+        justify-content: center;
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+    .flank-connector, .logo-right { display: none; }
+    .logo-left {
+        width: 140px;
+        margin: 0 auto;
+        display: block;
+        filter: drop-shadow(0 0 8px var(--accent-cyan));
+    }
+
+    .ticker-wrap { padding: 0.8rem 0; }
+    .ticker-item { font-size: 0.7rem; }
+
+    .manifesto-section { padding: 40px 0; width: 100vw; }
+    .huge-type { font-size: 18vw; line-height: 0.9; }
+    .description-block {
+        text-align: center;
+        margin: 2rem auto;
+        border-right: none;
+        border-bottom: 3px solid var(--accent-cyan);
+        padding-bottom: 1rem;
+        max-width: 90%;
+    }
+
+    .mobile-command-bar {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; width: 100%;
+        height: 60px;
+        background: #0a0a0a;
+        border-top: 2px solid var(--accent-cyan);
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.5rem;
+        z-index: 99999;
+        font-family: 'Space Mono', monospace;
+        box-shadow: 0 -5px 20px rgba(0, 240, 255, 0.15);
+        backdrop-filter: blur(5px);
+    }
+
+    .cmd-status { font-size: 0.7rem; color: #fff; opacity: 0.7; }
+    .cmd-status::before {
+        content: "●";
+        color: var(--terminal-green);
+        margin-right: 5px;
+        animation: blink 2s infinite;
+    }
+    .cmd-cart-btn {
+        background: var(--accent-cyan);
+        color: #000;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+    }
+
+} /* <--- AICI S-A ÎNCHIS BLOCUL PENTRU MOBIL */
+
+
+/* =========================================
+   UNIVERSAL GRID & IMAGE SYSTEM (GLOBAL)
+   ========================================= */
+
+/* 1. Containerul Principal */
+.main-grid-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* 2. Grila Desktop (3 Coloane) */
+.grid-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+}
+
+/* 3. Cardul produsului */
+/* Înlocuiește clasa .product-card existentă cu asta: */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+
+    /* SCHIMBAREA MAJORĂ: Fundal Alb, Text Negru */
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border: 1px solid transparent; /* Fără bordură vizibilă inițial */
+
+    width: 100%;
+    padding: 0; /* Scoatem padding general ca să lipim imaginea de margini */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden; /* Colțuri drepte */
+}
+
+/* Efectul de plutire la Hover */
+.product-card:hover {
+    transform: translateY(-8px) skewX(-1deg);
+    box-shadow: 8px 8px 0 var(--accent-cyan); /* Umbră solidă colorată */
+    z-index: 10;
+}
+
+/* Meta datele (Nume, Preț) în interiorul cardului alb */
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 900; /* Text foarte gros */
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem 0 1.5rem; /* Padding doar pentru text */
+    letter-spacing: -0.5px;
+}
+
+/* Descrierea în interiorul cardului alb */
+.product-desc {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-align: left;
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    border-top: 1px solid #ccc; /* Linie gri subtilă în interior */
+    margin-top: 1rem;
+    color: #333; /* Gri închis */
+}
+
+/* Badge-ul (eticheta roșie) */
+.badge {
+    background: var(--accent-red);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    left: 0; /* Mutăm badge-ul în stânga sus */
+    z-index: 5;
+}
+
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.product-desc {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-align: right;
+}
+
+/* --- ZONA PROBLEMATICĂ REZOLVATĂ --- */
+
+/* 4. Chenarul Imaginii (Rama) */
+.image-wrapper {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: #fff; /* Fundal alb sub imagine */
+    border-bottom: 1px solid #000; /* Linie neagră care separă poza de text */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 5. Imaginea care umple tot (COVER) */
+.product-real-img {
+    width: 100%;
+    height: 100%;
+
+    /* SCHIMBAREA CHEIE: */
+    object-fit: cover;      /* Umple tot chenarul, tăind marginile dacă e nevoie */
+    object-position: center top; /* Centrează imaginea, dar prioritizează partea de sus (unde e gâtul/logo-ul) */
+
+    padding: 0; /* Scoatem padding-ul ca să se lipească de margini */
+
+    display: block;
+    filter: grayscale(100%) contrast(1.2);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-card:hover .product-real-img {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.05);
+}
+
+/* --- PAGINA DE DETALIU (Desktop) --- */
+.detail-image-wrapper {
+    width: 100%;
+    height: 600px; /* O facem impunătoare pe desktop */
+    background: #fff;
+    border: 1px solid var(--grid-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.detail-real-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Pe Desktop Detail o lăsăm întreagă (arata bine, ai zis) */
+    padding: 20px;
+}
+
+
+/* =========================================
+   MOBILE OVERRIDE (Fix pt Telefon)
+   ========================================= */
+@media (max-width: 768px) {
+    .main-grid-container {
+        padding: 1rem;
+    }
+
+    .grid-section {
+        grid-template-columns: 1fr; /* 1 Coloană */
+        gap: 1.5rem;
+    }
+
+    /* Pe mobil, pagina principală e deja rezolvată de regulile de mai sus (object-fit: cover) */
+
+    /* --- FIX PAGINA DE DETALIU PE MOBIL --- */
+    /* Ai zis că aici e problema pe telefon */
+
+    .detail-image-wrapper {
+        height: 400px; /* Înălțime fixă pe mobil */
+    }
+
+    .detail-real-img {
+        /* Pe mobil forțăm și aici tăierea ca să umple ecranul */
+        object-fit: cover !important;
+        object-position: center top !important;
+        padding: 0 !important;
+    }
+    /* =========================================
+   INFO TERMINAL (Shipment, Warranty)
+   ========================================= */
+    /* INFO TERMINAL - Versiunea Albă */
+    .info-terminal {
+        margin-top: 3rem;
+        background: #fff; /* Fundal Alb */
+        color: #000;      /* Text Negru */
+        border: 1px solid #fff;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .info-box {
+        padding: 1.5rem;
+        border-right: 1px solid #ddd; /* Linii gri deschis */
+        text-align: center;
+    }
+    .info-title { color: #000; font-weight: 900; } /* Titlu Negru */
+
+    /* REVIEW LOGS - Versiunea Albă */
+    .review-log {
+        background: #f4f4f4; /* Gri foarte deschis */
+        color: #000;
+        border: 1px solid #fff;
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+    .review-header { color: #555; border-bottom: 1px dashed #999; }
+    .review-body { color: #000; font-weight: bold; }
+
+    /* =========================================
+       REVIEWS (DATA LOGS)
+       ========================================= */
+    .reviews-section {
+        margin-top: 4rem;
+        border-top: 1px solid var(--grid-line);
+        padding-top: 2rem;
+    }
+
+    .review-log {
+        border: 1px solid var(--grid-line);
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.02);
+        position: relative;
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.7rem;
+        color: var(--terminal-green);
+        margin-bottom: 0.5rem;
+        border-bottom: 1px dashed var(--grid-line);
+        padding-bottom: 0.5rem;
+    }
+
+    .review-body {
+        font-size: 0.9rem;
+        font-style: italic;
+        color: var(--text-main);
+    }
+
+    .stars { color: var(--accent-cyan); letter-spacing: 2px; }
+
+    /* =========================================
+       GLOBAL FOOTER
+       ========================================= */
+    .site-footer {
+        margin-top: 6rem;
+        border-top: 1px solid var(--grid-line);
+        padding: 3rem 1rem;
+        text-align: center;
+        font-size: 0.7rem;
+        opacity: 0.6;
+        width: 100%;
+        background: #000;
+    }
+
+    .footer-links a {
+        color: var(--text-main);
+        text-decoration: none;
+        margin: 0 1rem;
+        transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent-cyan); }
+
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 768px) {
+        .info-terminal { grid-template-columns: 1fr; } /* 1 Coloană pe mobil */
+        .info-box { border-right: none; border-bottom: 1px solid var(--grid-line); }
+    }
+}

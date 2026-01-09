@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ROOT // DASHBOARD</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+<div class="admin-container">
+    <header>
+        <h1>ROOT_ACCESS_GRANTED // [ADMIN_USER]</h1>
+        <div class="logout-link">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit">[ TERMINATE_SESSION ]</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- KPI SECTION -->
+    <section class="kpi-grid">
+        <div class="kpi-box">
+            <div class="kpi-label">LIQUIDITY_INFLOW</div>
+            <div class="kpi-value" th:text="'$' + ${#numbers.formatDecimal(totalRevenue, 1, 2)}">$0.00</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-label">TRANSACTION_VELOCITY</div>
+            <div class="kpi-value" th:text="${totalOrders}">0</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-label">SYSTEM_LOAD</div>
+            <div class="kpi-value warning">ACTIVE</div>
+        </div>
+    </section>
+
+    <!-- KPI SECTION -->
+    <section class="kpi-grid">
+        <!-- ... existing KPIs ... -->
+        <div class="kpi-box">
+            <div class="kpi-label">DROP_STATUS</div>
+            <div class="kpi-value"
+                 th:text="${isDropLive ? 'LIVE' : 'HALTED'}"
+                 th:style="${isDropLive ? 'color: #00ff00;' : 'color: red;'}">LIVE</div>
+        </div>
+    </section>
+
+    <!-- NEW: DANGER ZONE -->
+    <section class="panel" style="margin-bottom: 2rem; border-color: red;">
+        <h2 style="color: red; border-color: red;">> DANGER_ZONE // DROP_CONTROLS</h2>
+        <div style="display: flex; gap: 1rem;">
+
+            <!-- Shutdown Button -->
+            <form th:if="${isDropLive}" th:action="@{/admin/drop/toggle}" method="post">
+                <input type="hidden" name="active" value="false">
+                <button type="submit" style="border-color: red; color: red;">[ INITIATE_SHUTDOWN ]</button>
+            </form>
+
+            <!-- Re-Open Button -->
+            <form th:unless="${isDropLive}" th:action="@{/admin/drop/toggle}" method="post">
+                <input type="hidden" name="active" value="true">
+                <button type="submit" style="border-color: #00ff00; color: #00ff00;">[ OPEN_FLOODGATES ]</button>
+            </form>
+
+            <span style="opacity: 0.5; font-size: 0.8rem; align-self: center;">
+                WARNING: ACTION IS IMMEDIATE. ACTIVE CARTS WILL BE BLOCKED.
+            </span>
+        </div>
+    </section>
+
+    <!-- MIDDLE SECTION -->
+    <section class="split-view">
+
+        <!-- LEFT: LIVE FEED -->
+        <div class="panel">
+            <h2>> LIVE_FEED</h2>
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>TIME</th>
+                    <th>USER</th>
+                    <th>VAL</th>
+                    <th>STATUS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${recentOrders}">
+                    <td th:text="'#' + ${order.id}">#001</td>
+                    <td th:text="${#temporals.format(order.createdAt, 'HH:mm:ss')}">12:00</td>
+                    <td th:text="${order.customerEmail}">user@mail.com</td>
+                    <td th:text="'$' + ${order.totalAmount}">$100</td>
+                    <td><span class="status-badge" th:text="${order.status}">PAID</span></td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:if="${recentOrders.empty}" class="empty-state">NO_DATA_DETECTED</div>
+        </div>
+
+        <!-- RIGHT: INVENTORY CONTROL -->
+        <div class="panel">
+            <h2>> INVENTORY_CONTROL</h2>
+            <div class="inventory-list">
+                <div th:each="product : ${allProducts}" class="inventory-item"
+                     th:classappend="${product.stock < 10} ? 'low-stock' : ''">
+
+                    <div class="prod-info">
+                        <span class="prod-id" th:text="${product.id}">001</span>
+                        <span class="prod-name" th:text="${product.name}">ITEM_NAME</span>
+                        <span class="prod-stock">REQ: <span th:text="${product.stock}">100</span></span>
+                    </div>
+
+                    <form th:action="@{/admin/stock/update}" method="post" class="stock-form">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <input type="number" name="newStock" th:value="${product.stock}" min="0">
+                        <button type="submit">[UPDATE]</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+</body>
+</html>

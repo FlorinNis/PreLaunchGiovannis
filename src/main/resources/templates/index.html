@@ -3,202 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAND // PRE_LAUNCH</title>
-    <style>
-        /* --- 1. CORE AESTHETICS (Source 1: Neo-Brutalism) --- */
-        :root {
-            --bg-color: #0a0a0a;      /* Brutalist Black  */
-            --text-main: #e0e0e0;     /* Raw Terminal Text */
-            --accent-red: #ff003c;    /* Glitch Red */
-            --accent-cyan: #00f0ff;   /* Glitch Cyan */
-            --grid-line: rgba(255, 255, 255, 0.1);
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Courier New', Courier, monospace; /* Simple Text Mandate [cite: 38] */
-            margin: 0;
-            padding: 2rem;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* --- 2. THE ABSTRACT MATRIX BACKGROUND [cite: 117-120] --- */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            /* Layer 1: Vertical Scanlines + Layer 2: Diagonal Interference */
-            background-image:
-                    repeating-linear-gradient(to right, transparent, transparent 1px, rgba(255,255,255,0.03) 1px, rgba(255,255,255,0.03) 2px),
-                    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.01) 10px, rgba(255,255,255,0.01) 11px);
-            pointer-events: none;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            border-left: 1px solid var(--grid-line); /* Architectural Structure */
-            padding-left: 2rem;
-            position: relative;
-        }
-
-        /* --- 3. HERO & GLITCH TYPOGRAPHY [cite: 124-135] --- */
-        header { margin-bottom: 4rem; }
-
-        h1.glitch {
-            font-size: 3.5rem;
-            text-transform: uppercase;
-            margin: 0;
-            line-height: 1;
-            position: relative;
-            display: inline-block;
-        }
-
-        /* CSS-Only Glitch Effect on Hover */
-        h1.glitch:hover {
-            animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-            color: var(--accent-red);
-            text-shadow: 2px 0 var(--accent-cyan), -2px 0 var(--accent-red);
-        }
-
-        @keyframes glitch-skew {
-            0% { transform: skew(0deg); }
-            20% { transform: skew(-2deg); }
-            40% { transform: skew(2deg); }
-            60% { transform: skew(-1deg); }
-            80% { transform: skew(1deg); }
-            100% { transform: skew(0deg); }
-        }
-
-        .subtitle { font-size: 0.9rem; opacity: 0.7; margin-top: 1rem; }
-
-        /* --- 4. PRODUCT GRID (Source 2: Impulse Psychology) --- */
-        .grid-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive [cite: 140] */
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .product-card {
-            border: 1px solid var(--grid-line); /* Raw Borders  */
-            padding: 1rem;
-            transition: all 0.2s;
-        }
-
-        .product-card:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(255,255,255,0.02);
-        }
-
-        .placeholder-img {
-            height: 250px;
-            background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #333;
-            margin-bottom: 1rem;
-            font-size: 0.8rem;
-            color: #555;
-        }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            font-weight: bold;
-        }
-
-        .badge {
-            background: var(--accent-red);
-            color: #000;
-            padding: 2px 6px;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
-        /* --- 5. WAITLIST FORM (The "Command Line") --- */
-        .waitlist-section {
-            border-top: 1px solid var(--grid-line);
-            padding-top: 3rem;
-        }
-
-        input[type="text"] {
-            background: transparent;
-            border: 1px solid var(--grid-line);
-            border-left: 3px solid var(--accent-cyan);
-            color: var(--text-main);
-            padding: 1rem;
-            width: 100%;
-            max-width: 400px;
-            font-family: inherit;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        input:focus { background: rgba(0, 240, 255, 0.05); }
-
-        .input-error { border-color: var(--accent-red) !important; color: var(--accent-red); }
-        .error-msg { color: var(--accent-red); font-size: 0.8rem; margin-top: 0.5rem; display: block; }
-
-        button {
-            background: var(--text-main);
-            color: var(--bg-color);
-            border: none;
-            padding: 1rem 3rem;
-            font-family: inherit;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 1rem;
-            text-transform: uppercase;
-            transition: transform 0.1s;
-        }
-
-        button:hover {
-            transform: translateX(5px); /* Micro-interaction */
-            background: var(--accent-cyan);
-        }
-
-        .hp-field { position: absolute; left: -9999px; opacity: 0; }
-    </style>
+    <title>BRAND // PRE_LANCIO</title>
+    <link rel="stylesheet" th:href="@{css/core.css}">
 </head>
 <body>
-<div class="container">
+<div class="mobile-command-bar">
+    <div class="cmd-status">SIS: ONLINE</div>
+    <a th:href="@{/cart}" class="cmd-cart-btn">VEDI_CARRELLO</a>
+</div>
+<div id="cursor-spotlight"></div>
+<div id="transition-overlay"></div>
 
+<div id="boot-screen">
+    <div id="boot-log"></div>
+    <div><span class="cursor"></span></div>
+</div>
+
+<div class="container" style="opacity: 0; animation: none;">
     <header>
-        <div style="font-size: 0.7rem; margin-bottom: 1rem; opacity: 0.5;">
-            STATUS: PRE_LAUNCH // SERVER_TIME: <span id="server-clock" th:text="${serverTime}">INIT</span>
+        <div style="font-size: 0.7rem; margin-bottom: 1rem; opacity: 0.5; display: flex; justify-content: space-between;">
+            <span>STATO: PRE_LANCIO // ORA_SERVER: <span id="server-clock" th:text="${serverTime}">INIT</span></span>
+            <a th:href="@{/cart}" style="color: inherit; text-decoration: none; border-bottom: 1px solid transparent;" onmouseover="this.style.borderBottomColor='var(--accent-cyan)'" onmouseout="this.style.borderBottomColor='transparent'">
+                [ APRI_BUFFER ]
+            </a>
         </div>
-        <h1 class="glitch">ABSTRACT_LINES</h1>
+        <h1 class="glitch scramble-hover" data-original="LINEE_ASTRATTE">GLITCHY CAT</h1>
         <div class="subtitle">
-            DROP_001_PENDING // <span id="countdown">CALCULATING_OFFSET...</span>
+            DROP_001_IN_ATTESA // <span id="countdown">CALCOLO_OFFSET...</span>
         </div>
     </header>
 
-    <section class="grid-section">
-        <div class="product-card" th:each="product : ${products}">
-            <span class="badge" th:text="${product.badge}">BADGE</span>
-            <div class="placeholder-img">
-                [IMG_DATA_MISSING]
+    <div class="flank-logo-container">
+        <img th:src="@{/images/cyber-cat.png}" alt="Cyber Cat Left" class="flank-logo logo-left glitch-hover">
+        <div class="flank-connector"></div>
+        <img th:src="@{/images/cyber-cat.png}" alt="Cyber Cat Right" class="flank-logo logo-right glitch-hover">
+    </div>
+
+    <section class="hero-manifest">
+        <div class="ticker-wrap">
+            <div class="ticker-move">
+                <div class="ticker-item">ALLOCAZIONE LIMITATA // NESSUN RESTOCK // COTONE PESANTE // SINCRONIZZAZIONE SERVER // </div>
+                <div class="ticker-item">SPEDIZIONE DA MILANO // ESTETICA BRUTALISTA // SISTEMA SICURO // </div>
             </div>
-            <div class="product-meta">
-                <div>
-                    <div th:text="${product.name}">PRODUCT_NAME</div>
-                    <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 5px;" th:text="${product.description}">DESC</div>
-                </div>
-                <div th:text="${product.price}">$000</div>
+        </div>
+
+        <div class="split-grid">
+            <div class="manifesto-box">
+                <h3 class="tiny-header">> FILOSOFIA_SISTEMA</h3>
+                <p class="manifesto-text scramble-hover" data-original="RIFIUTARE LA LUCENTEZZA MODERNA. SOLO MATERIE PRIME. 450GSM. EST. 2026.">
+                    RIFIUTARE LA LUCENTEZZA MODERNA.<br>
+                    SOLO MATERIE PRIME.<br>
+                    450GSM.<br>
+                    EST. 2026.<br>
+                    <span style="color: var(--accent-cyan)">STATO SISTEMA: ONLINE.</span>
+                </p>
+            </div>
+            <div class="visualizer-box">
+                <div class="radar-scan"></div>
             </div>
         </div>
     </section>
 
+    <section class="manifesto-section">
+        <div class="huge-type" data-speed="0.1">CAOS_INGEGNERIZZATO</div>
+        <div class="description-block">
+            NON MODA. <br> CODICE INDOSSABILE. <br> COMPILATO IN ITALIA.
+        </div>
+        <div class="huge-type outline" data-speed="-0.1">OVERRIDE_SISTEMA</div>
+    </section>
+
+    <div class="category-header" style="margin-bottom: 1rem; border-bottom: 2px solid var(--text-main); padding-bottom: 0.5rem;">
+        <h2 style="font-size: 1.5rem; margin: 0;">> MODULO_01: FELPE</h2>
+    </div>
+
+    <div class="main-grid-container">
+        <section class="grid-section">
+            <a th:each="product : ${hoodies}"
+               th:href="@{/product/{id}(id=${product.id})}"
+               class="product-card">
+                <span class="badge" th:text="${product.badge}">NUOVO</span>
+                <div class="image-wrapper">
+                    <img th:src="@{'/images/p' + ${product.id} + '.png'}" alt="Art" class="product-real-img">
+                </div>
+                <div class="product-meta">
+                    <span class="scramble-hover" th:data-original="${product.name}" th:text="${product.name}">NOME</span>
+                    <span th:text="${product.price} + ' €'">120 €</span>
+                </div>
+                <div class="product-desc" th:text="${product.description}">INFO</div>
+            </a>
+        </section>
+    </div>
+
+    <div class="category-header" style="margin-top: 4rem; margin-bottom: 1rem; border-bottom: 2px solid var(--text-main); padding-bottom: 0.5rem;">
+        <h2 style="font-size: 1.5rem; margin: 0;">> MODULO_02: T-SHIRT</h2>
+    </div>
+
+    <div class="main-grid-container">
+        <section class="grid-section">
+            <a th:each="product : ${tshirts}"
+               th:href="@{/product/{id}(id=${product.id})}"
+               class="product-card">
+                <span class="badge" th:text="${product.badge}">NUOVO</span>
+                <div class="image-wrapper">
+                    <img th:src="@{'/images/p' + ${product.id} + '.png'}" alt="Art" class="product-real-img">
+                </div>
+                <div class="product-meta">
+                    <span class="scramble-hover" th:data-original="${product.name}" th:text="${product.name}">NOME</span>
+                    <span th:text="${product.price} + ' €'">45 €</span>
+                </div>
+                <div class="product-desc" th:text="${product.description}">INFO</div>
+            </a>
+        </section>
+    </div>
+
+    <div class="category-header" style="margin-top: 4rem; margin-bottom: 1rem; border-bottom: 2px solid var(--text-main); padding-bottom: 0.5rem;">
+        <h2 style="font-size: 1.5rem; margin: 0;">> MODULO_03: PANTALONI</h2>
+    </div>
+
+    <div class="main-grid-container">
+        <section class="grid-section">
+            <a th:each="product : ${pants}"
+               th:href="@{/product/{id}(id=${product.id})}"
+               class="product-card">
+                <span class="badge" th:text="${product.badge}">NUOVO</span>
+                <div class="image-wrapper">
+                    <img th:src="@{'/images/p' + ${product.id} + '.png'}" alt="Art" class="product-real-img">
+                </div>
+                <div class="product-meta">
+                    <span class="scramble-hover" th:data-original="${product.name}" th:text="${product.name}">NOME</span>
+                    <span th:text="${product.price} + ' €'">90 €</span>
+                </div>
+                <div class="product-desc" th:text="${product.description}">INFO</div>
+            </a>
+        </section>
+    </div>
+
+
     <section class="waitlist-section">
-        <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">> SECURE_ACCESS</h2>
+        <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">> ACCESSO_SICURO</h2>
 
         <form th:action="@{/join}" th:object="${subscriber}" method="post">
             <div class="hp-field">
@@ -206,51 +148,262 @@
             </div>
 
             <div style="position: relative;">
-                <label style="display:block; font-size: 0.7rem; margin-bottom: 0.5rem; opacity: 0.7;">ENTER_EMAIL_ADDRESS:</label>
-                <input type="text" th:field="*{email}" placeholder="user@domain.net"
+                <label style="display:block; font-size: 0.7rem; opacity: 0.7;">INSERISCI_EMAIL:</label>
+
+                <label style="display:block; font-size: 0.7rem; opacity: 0.7; margin-top: 1rem;">NOME_CODICE:</label>
+                <input type="text" th:field="*{name}" placeholder="UTENTE_OSPITE" th:classappend="${#fields.hasErrors('name')} ? 'input-error' : ''">
+                <span class="error-msg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">NOME_NON_VALIDO</span>
+
+                <label style="display:block; font-size: 0.7rem; opacity: 0.7; margin-top: 1rem;">VETTORE_DI_CONTATTO:</label>
+                <input type="text" th:field="*{email}" placeholder="utente@dominio.it"
                        th:classappend="${#fields.hasErrors('email')} ? 'input-error' : ''">
+                <span class="error-msg" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">INPUT_NON_VALIDO</span>
             </div>
 
-            <span class="error-msg" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">INVALID_INPUT</span>
-
-            <button type="submit">INITIATE_SEQUENCE</button>
+            <button type="submit">AVVIA_SEQUENZA</button>
         </form>
 
-        <p style="font-size: 0.7rem; margin-top: 2rem; opacity: 0.4; max-width: 400px;">
-            WARNING: HIGH TRAFFIC DETECTED. ALLOCATION IS NOT GUARANTEED.
-            BY INITIATING SEQUENCE YOU AGREE TO DATA RETENTION PROTOCOLS.
+        <p style="font-size: 0.7rem; margin-top: 2rem; opacity: 0.4; max-width: 400px; line-height: 1.5;">
+            ATTENZIONE: TRAFFICO ELEVATO RILEVATO. L'ALLOCAZIONE NON È GARANTITA.
+            AVVIANDO LA SEQUENZA ACCETTI I PROTOCOLLI DI RITENZIONE DATI.
         </p>
     </section>
 </div>
 
+<footer class="site-footer">
+    <div style="margin-bottom: 1.5rem; letter-spacing: 2px; font-weight: bold;">BRAND_CORP // 2026</div>
+
+    <div class="footer-links">
+        <a href="#">SPEDIZIONI</a> //
+        <a href="#">TERMINI & CONDIZIONI</a> //
+        <a href="#">PRIVACY_PROTOCOL</a> //
+        <a href="#">INSTAGRAM</a>
+    </div>
+
+    <p style="margin-top: 2rem; font-size: 0.6rem;">
+        MILANO, ITALIA.<br>
+        TUTTI I SISTEMI OPERATIVI.<br>
+        CODICE IDENTIFICATIVO: 00-294-X
+    </p>
+</footer>
+
 <script th:inline="javascript">
-    /* Server Time Sync Logic */
-    const serverTime = [[${serverTime}]];
-    const clientTime = Date.now();
-    const timeOffset = serverTime - clientTime; // Calculate offset
-
-    // Target Drop Date (Example: 24 hours from now)
-    const dropDate = serverTime + (24 * 60 * 60 * 1000);
-
-    function updateTimer() {
-        const currentServerTime = Date.now() + timeOffset;
-        const distance = dropDate - currentServerTime;
-
-        if (distance < 0) {
-            document.getElementById("countdown").innerHTML = "DROP_LIVE";
-            return;
+    document.addEventListener('DOMContentLoaded', () => {
+        /* =========================================
+           1. SPOTLIGHT & PARALLAX
+           ========================================= */
+        const spotlight = document.getElementById('cursor-spotlight');
+        if (spotlight) {
+            document.addEventListener('mousemove', (e) => {
+                spotlight.style.left = e.clientX + 'px';
+                spotlight.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mousedown', () => spotlight.style.transform = 'translate(-50%, -50%) scale(0.8)');
+            document.addEventListener('mouseup', () => spotlight.style.transform = 'translate(-50%, -50%) scale(1)');
         }
 
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        const ms = Math.floor((distance % 1000) / 10); // Show milliseconds for urgency
+        const parallaxEls = document.querySelectorAll('.huge-type');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            parallaxEls.forEach(el => {
+                const speed = el.getAttribute('data-speed');
+                el.style.transform = `translateX(${scrollY * speed * 100}px)`;
+            });
+        });
 
-        document.getElementById("countdown").innerHTML =
-            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${ms.toString().padStart(2, '0')}`;
-    }
+        /* =========================================
+           2. TEXT SCRAMBLE LOGIC
+           ========================================= */
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="dud">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
 
-    setInterval(updateTimer, 10); // High frequency update [cite: 147]
+        const els = document.querySelectorAll('.scramble-hover');
+        els.forEach(el => {
+            const fx = new TextScramble(el);
+            const originalHTML = el.innerHTML;
+            const originalText = el.innerText;
+            let isAnimating = false;
+
+            el.addEventListener('mouseenter', () => {
+                if(isAnimating) return;
+                isAnimating = true;
+                fx.setText(originalText).then(() => {
+                    el.innerHTML = originalHTML;
+                    isAnimating = false;
+                });
+            });
+        });
+
+        /* =========================================
+           3. BOOT SEQUENCE (ITALIAN)
+           ========================================= */
+        const bootScreen = document.getElementById('boot-screen');
+        const bootLog = document.getElementById('boot-log');
+        const container = document.querySelector('.container');
+
+        // Am păstrat doar versiunea în Italiană
+        const bootLines = [
+            "> INIT_CORE_SISTEMA...",
+            "> CARICAMENTO_ASSET_ASTRATTI...",
+            "> BYPASS_PROTOCOLLO_SCARSITÀ...",
+            "> CONNESSIONE_SERVER_MILANO... OK"
+        ];
+
+        let lineIndex = 0;
+        let charIndex = 0;
+        let currentLineEl = null;
+
+        function typeWriter() {
+            if (lineIndex < bootLines.length) {
+                if (!currentLineEl) {
+                    currentLineEl = document.createElement('div');
+                    currentLineEl.className = 'boot-line';
+                    currentLineEl.style.opacity = '1';
+                    bootLog.appendChild(currentLineEl);
+                    charIndex = 0;
+                }
+                const currentText = bootLines[lineIndex];
+                if (charIndex < currentText.length) {
+                    currentLineEl.textContent += currentText.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 30);
+                } else {
+                    lineIndex++;
+                    currentLineEl = null;
+                    setTimeout(typeWriter, 400);
+                }
+            } else {
+                setTimeout(() => {
+                    bootScreen.classList.add('glitch-active');
+                    setTimeout(() => {
+                        bootScreen.style.display = 'none';
+                        container.style.opacity = '1';
+                        container.style.animation = 'fadeIn 1s forwards';
+                    }, 300);
+                }, 500);
+            }
+        }
+        typeWriter();
+
+        /* =========================================
+           4. COUNTDOWN & UTILS
+           ========================================= */
+        const serverTime = /*[[${serverTime}]]*/ 0;
+        const clientTime = Date.now();
+        const timeOffset = serverTime - clientTime;
+        const dropDate = serverTime + (24 * 60 * 60 * 1000);
+
+        function updateTimer() {
+            const currentTime = Date.now() + timeOffset;
+            const timeLeft = dropDate - currentTime;
+            if (timeLeft <= 0) {
+                const counter = document.getElementById("countdown");
+                if(counter) counter.innerHTML = "DROP_LIVE";
+                return;
+            }
+            // Simplificat
+            document.getElementById("countdown").innerHTML = "CALCOLO_OFFSET...";
+        }
+        // Poți decomenta setInterval dacă vrei timer real
+        // setInterval(updateTimer, 1000);
+
+        /* =========================================
+           5. INTERCEPTARE LINKURI (GLITCH TRANSITION)
+           ========================================= */
+        const overlay = document.getElementById('transition-overlay');
+        const links = document.querySelectorAll('a.product-card, a.cmd-cart-btn');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetUrl = link.href;
+                overlay.classList.add('glitch-active');
+                setTimeout(() => { window.location.href = targetUrl; }, 600);
+            });
+        });
+
+        /* =========================================
+           6. MOBILE GOD MODE & HAPTICS
+           ========================================= */
+
+        // Haptic Feedback
+        document.querySelectorAll('a, button, .product-card').forEach(el => {
+            el.addEventListener('click', () => {
+                if (navigator.vibrate) {
+                    navigator.vibrate(100);
+                }
+            });
+        });
+
+        // Auto-Glitch on Scroll
+        const observerOptions = { threshold: 0.2 };
+        const glitchObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    target.classList.add('glitch-active');
+                    setTimeout(() => {
+                        target.classList.remove('glitch-active');
+                    }, 500);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            glitchObserver.observe(card);
+        });
+
+    }); // <--- AICI ERA PROBLEMA: Această paranteză lipsea sau era pusă greșit înainte
 </script>
 </body>
 </html>
